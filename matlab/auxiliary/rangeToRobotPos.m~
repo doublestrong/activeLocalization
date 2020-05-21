@@ -1,0 +1,25 @@
+function res = rangeToRobotPos(range,reflectors)
+%RANGETOROBOTPOS Summary of this function goes here
+%   Detailed explanation goes here
+res = [];
+len = length(reflectors);
+far_left_pos = reflectors(1) + range;
+if far_left_pos < 0.5 * (reflectors(1) + reflectors(2))
+    res = [res, far_left_pos];
+end
+
+for i = 2 : len-1
+    left_pos = reflectors(i) - range;
+    if left_pos > 0.5 * (reflectors(i) + reflectors(i-1))
+        res = [res, left_pos];
+    end
+    right_pos = reflectors(i) + range;    
+    if right_pos < 0.5 * (reflectors(i) + reflectors(i+1))
+        res = [res, far_left_pos];    
+    end
+    
+end
+outputArg1 = inputArg1;
+outputArg2 = inputArg2;
+end
+
